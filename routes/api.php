@@ -20,3 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::resource('stokbarang','StokBarangController');
 
 \Illuminate\Support\Facades\Route::resource('barangmasuk','BarangMasukController');
+\Illuminate\Support\Facades\Route::resource('barangkeluar','BarangKeluarController');
