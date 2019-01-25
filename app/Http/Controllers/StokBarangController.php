@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\StokBarang;
 use Illuminate\Http\Request;
-use Mockery\Exception;
+
 
 class StokBarangController extends Controller
 {
@@ -77,7 +77,7 @@ class StokBarangController extends Controller
         try {
             StokBarang::destroy($id);
             return response([], 204);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return response(['Delete Problem : ' . $e], 500);
         }
     }
