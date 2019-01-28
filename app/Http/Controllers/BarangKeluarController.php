@@ -15,7 +15,7 @@ class BarangKeluarController extends Controller
      */
     public function index()
     {
-        return BarangKeluar::all();
+        return StokBarang::all();
     }
 
     /**
@@ -27,16 +27,16 @@ class BarangKeluarController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-           'barangId' => 'required',
+           'id' => 'required',
            'jmlhKeluar' => 'required'
         ]);
-        $BK = BarangKeluar::create($request->all());
-        $stok = StokBarang::find($request->barangId);
+//        $BK = BarangKeluar::create($request->all());
+        $stok = StokBarang::find($request->id);
         $stokBaru = $stok->stok - $request->jmlhKeluar;
         $stok->update([
             'stok' => $stokBaru
         ]);
-        return $BK;
+        return $stok;
     }
 
     /**

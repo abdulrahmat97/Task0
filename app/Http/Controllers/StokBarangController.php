@@ -81,4 +81,32 @@ class StokBarangController extends Controller
             return response(['Delete Problem : ' . $e], 500);
         }
     }
+
+    public function barangMasuk(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required',
+            'jmlhMasuk' => 'required'
+        ]);
+        $stok = StokBarang::find($request->id);
+        $jumlah = $request->jmlhMasuk + $stok->stok;
+        $stok->update([
+            'stok' => $jumlah
+        ]);
+        return $stok;
+    }
+
+    public function barangKeluar(Request $request)
+    {
+        $this->validate($request,[
+            'id' => 'required',
+            'jmlhKeluar' => 'required'
+        ]);
+        $stok = StokBarang::find($request->id);
+        $stokBaru = $stok->stok - $request->jmlhKeluar;
+        $stok->update([
+            'stok' => $stokBaru
+        ]);
+        return $stok;
+    }
 }

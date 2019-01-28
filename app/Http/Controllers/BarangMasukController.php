@@ -16,7 +16,7 @@ class BarangMasukController extends Controller
      */
     public function index()
     {
-        return BarangMasuk::all();
+        return StokBarang::all();
     }
 
     /**
@@ -28,16 +28,16 @@ class BarangMasukController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'barangId' => 'required',
+            'id' => 'required',
             'jmlhMasuk' => 'required'
         ]);
-        $BM = BarangMasuk::create($request->all());
-        $stok = StokBarang::find($request->barangId);
+//        $BM = BarangMasuk::create($request->all());
+        $stok = StokBarang::find($request->id);
         $jumlah = $request->jmlhMasuk + $stok->stok;
         $stok->update([
             'stok' => $jumlah
         ]);
-        return $BM;
+        return $stok;
     }
 
     /**
@@ -48,9 +48,9 @@ class BarangMasukController extends Controller
      */
     public function show($id)
     {
-        $BM = BarangMasuk::find($id);
-        if (count($BM) > 0)
-            return response()->json($BM);
+        $stok = StokBarang::find($id);
+        if (count($stok) > 0)
+            return response()->json($stok);
 
         return response()->json(['error', 'Barang tidak ditemukan'], 404);
     }
@@ -64,19 +64,20 @@ class BarangMasukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $BM = BarangMasuk::find($id);
-        $stok = StokBarang::find($BM->barangId);
+//        $BM = BarangMasuk::find($id);
+//        $stok = StokBarang::find($BM->barangId);
+//
+//        $stokTemp = ($stok->stok) - ($BM->jmlhMasuk);
+//        $stokBaru = ($request->jmlhMasuk) + $stokTemp;
 
-        $stokTemp = ($stok->stok) - ($BM->jmlhMasuk);
-        $stokBaru = ($request->jmlhMasuk) + $stokTemp;
+        $stok = StokBarang::find($id);
+        $stok->update($request->all());
 
-        $BM->update($request->all());
+//        $stok->update([
+//            'stok' => $stokBaru
+//        ]);
 
-        $stok->update([
-            'stok' => $stokBaru
-        ]);
-
-        return response()->json($BM);
+        return response()->json($stok);
 
     }
 
@@ -89,7 +90,7 @@ class BarangMasukController extends Controller
     public function destroy($id)
     {
         try {
-            BarangMasuk::destroy($id);
+            StokBarang::destroy($id);
             return response([], 204);
         } catch (\Exception $e) {
             return response(['Delete Problems : ' . $e], 500);
