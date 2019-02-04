@@ -19,8 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('stokbarang','StokBarangController');
 
-\Illuminate\Support\Facades\Route::post('/barangmasuk','StokBarangController@barangMasuk');
-\Illuminate\Support\Facades\Route::post('/barangkeluar','StokBarangController@barangKeluar');
+Route::post('/barangmasuk','StokBarangController@barangMasuk');
+Route::post('/barangkeluar','StokBarangController@barangKeluar');
 
 //
 //\Illuminate\Support\Facades\Route::resource('barangmasuk','BarangMasukController');
