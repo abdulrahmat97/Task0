@@ -10,4 +10,5 @@ class StokBarang extends Model
     protected $fillable = [
         'namabarang', 'stok'
     ];
+
 }

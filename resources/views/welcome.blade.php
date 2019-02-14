@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ app()->getLocale() }}">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,42 +8,43 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Laravel</title>
     <!-- Fonts -->
-    {{--<link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">--}}
+    {{--
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">--}}
     <link rel="stylesheet" href="{{ asset('style.css') }}">
     <link rel="stylesheet" href="{{ asset('datatable.css') }}">
 
 </head>
+
 <body>
-<div class="flex-center position-ref full-height">
-    <div class="col-md-12">
-        <h3>Table Stok</h3>
-        '
-        <button id="barangmasuk" class="btn btn-primary" onclick="inputBrngMsk(' + data +')">Input Barang Masuk</button>
-        '
-        <br>
-        <table id="stok" class="display table table-responsive table-bordered" width="100%" cellspacing="0">
-            <thead>
-            <tr>
-                <td>Nama Barang</td>
-                <td>Stok</td>
-                <td>Action</td>
-            </tr>
-            </thead>
-            <tfoot>
-            <tr>
-                <td>Nama Barang</td>
-                <td>Stok</td>
-                <td></td>
-            </tr>
-            </tfoot>
-        </table>
+    <div class="flex-center position-ref full-height">
+        <div class="col-md-12">
+            <h3>Table Stok</h3>
+            <button id="stokmasuk" class="btn btn-primary" onclick="stokMasuk()">Input Barang</button>
+            <br>
+            <br>
+            <table id="stok" class="display table table-responsive table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <td>Nama Barang</td>
+                        <td>Stok</td>
+                        <td>Action</td>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <td>Nama Barang</td>
+                        <td>Stok</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
-</div>
-<script src="{{ asset('js/app.js') }}"></script>
-<script src="{{ asset('script.js') }}"></script>
-<script src="{{ asset('datatables.js') }}"></script>
-<script>
-    var apiURL = "http://127.0.0.1:9000/api/";
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('script.js') }}"></script>
+    <script src="{{ asset('datatables.js') }}"></script>
+    <script>
+        var apiURL = "http://127.0.0.1:8000/api/";
 
     var dataTabelStok = $('#stok').DataTable({
         "processing": true,
@@ -192,6 +194,36 @@
         return _form
     }
 
-</script>
+    function formStokMasuk() {
+            var _form = $('<form></form>').addClass('form').addClass('barangMasuk').attr('role', 'form');
+            var inputNmBrng = _form.append($('<div></div>').addClass('form-group'));
+            inputNmBrng.append($('<label></label>').addClass('label-control').text('Nama Barang'));
+            inputNmBrng.append($('<input>').addClass('form-control').attr('name', 'namabarang').attr('type', 'text'));
+
+            var inputStok = _form.append($('<div></div>').addClass('form-group'));
+            inputStok.append($('<label></label>').addClass('label-control').text('Stok'));
+            inputStok.append($('<input>').addClass('form-control').attr('name', 'stok').attr('type', 'text'));
+            
+            return _form
+    }
+
+    // function stokMasuk(){
+    //     bootbox.dialog({
+    //         title: 'Input Barang Masuk #',
+    // function formStokMasuk() {
+    //         message: _this.formStokMasuk(),
+    //         buttons: {
+    //             main: {
+    //                 label: 'Save',
+    //                 className: 'btn btn-primary btn-sm',
+    //                 callback: function () {
+    //                     // _this.barangMasuk($('form.formMasuk').serialize());
+    //                 }
+    //             }
+    //         }
+    //     });
+    // }
+    </script>
 </body>
+
 </html>
